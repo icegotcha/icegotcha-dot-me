@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import styles from './Typewriter.module.css'
 
 type Props = {
   text: string
@@ -8,7 +9,11 @@ type Props = {
   duration?: number // milliseconds
 }
 
-export default function Typewriter({ text, className = '', duration = 2000 }: Props) {
+export default function Typewriter({
+  text,
+  className = '',
+  duration = 2000,
+}: Props) {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
@@ -34,8 +39,9 @@ export default function Typewriter({ text, className = '', duration = 2000 }: Pr
       <span aria-hidden className='invisible'>
         {text}
       </span>
-      <span className='typewriter-caret absolute top-0 left-0' aria-hidden>
+      <span className='absolute top-0 left-0' aria-hidden>
         {text.slice(0, count)}
+        <span className={styles['typewriter-caret']} />
       </span>
     </span>
   )

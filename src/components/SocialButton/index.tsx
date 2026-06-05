@@ -10,7 +10,7 @@ const SocialButton = ({ icon, name, link }: ISocialButtonProps) => {
       href={link}
       target='_blank'
       rel='noopener noreferrer'
-      className='bg-purple-600 rounded-full p-3 text-white hover:bg-purple-700 flex gap-2 items-center justify-center drop-shadow-md'
+      className='bg-purple-600 rounded-full p-4 text-white hover:bg-purple-700 flex gap-2 items-center justify-center drop-shadow-md'
     >
       {icon}
       <span>{name}</span>
