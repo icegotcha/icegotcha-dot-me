@@ -18,7 +18,7 @@ const ICON_SIZE = 16
 const socialLinks = [
   {
     name: 'Resume',
-    link: 'resume.icegotcha.me',
+    link: 'https://resume.icegotcha.me',
     icon: <Briefcase size={ICON_SIZE} />,
   },
   {

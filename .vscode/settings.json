@@ -9,5 +9,6 @@
   "files.associations": {
     "*.ts": "typescript",
     "*.tsx": "typescriptreact"
-  }
+  },
+  "eslint.format.enable": true
 }
