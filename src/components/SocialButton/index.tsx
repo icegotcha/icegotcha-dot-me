@@ -1,3 +1,5 @@
+'use client'
+
 export interface ISocialButtonProps {
   icon: React.ReactNode
   name: string
@@ -8,8 +10,6 @@ const SocialButton = ({ icon, name, link }: ISocialButtonProps) => {
   return (
     <a
       href={link}
-      target='_blank'
-      rel='noopener noreferrer'
       className='bg-purple-600 rounded-full p-4 text-white hover:bg-purple-700 flex gap-2 items-center justify-center drop-shadow-md'
     >
       {icon}

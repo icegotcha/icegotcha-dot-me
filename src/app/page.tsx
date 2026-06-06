@@ -1,52 +1,12 @@
+'use client'
+
 import Image from 'next/image'
-import {
-  GitHub,
-  Linkedin,
-  Globe,
-  Book,
-  Instagram,
-  Briefcase,
-} from 'react-feather'
 import Container from '../components/Container'
 import SocialButton from '../components/SocialButton'
 import Typewriter from '../components/Typewriter'
 import Section from '@/components/Section'
 import Title from '@/components/Title'
-
-const ICON_SIZE = 16
-
-const socialLinks = [
-  {
-    name: 'Resume',
-    link: 'https://resume.icegotcha.me',
-    icon: <Briefcase size={ICON_SIZE} />,
-  },
-  {
-    name: 'Linkedin',
-    link: 'https://www.linkedin.com/in/kotchakornw/',
-    icon: <Linkedin size={ICON_SIZE} />,
-  },
-  {
-    name: 'Github',
-    link: 'https://github.com/icegotcha',
-    icon: <GitHub size={ICON_SIZE} />,
-  },
-  {
-    name: 'Blog',
-    link: 'https://knowlats.dev',
-    icon: <Globe size={ICON_SIZE} />,
-  },
-  {
-    name: 'Medium',
-    link: 'https://medium.com/@icegotcha',
-    icon: <Book size={ICON_SIZE} />,
-  },
-  {
-    name: 'Artwork',
-    link: 'https://www.instagram.com/icegotcha_artwork',
-    icon: <Instagram size={ICON_SIZE} />,
-  },
-]
+import { SOCIAL_LINKS } from '@/constants/social-links'
 
 const HomePage = () => {
   return (
@@ -69,7 +29,7 @@ const HomePage = () => {
               duration={1800}
             />
           </p>
-          <p className='text-center text-xl p-4'>
+          <p className='text-center text-lg p-4'>
             Software Engineer | Lifelong Learner | Writer at Heart | Crafting
             Ideas into Reality
           </p>
@@ -90,7 +50,9 @@ const HomePage = () => {
           </div>
           <div className='w-full'>
             <p className='text-lg md:text-xl text-gray-700'>
-              My name is Kotchakorn Wongwisutigul (Ice).
+              <span className='font-bold text-2xl'>
+                👋 My name is Kotchakorn Wongwisutigul (Ice).
+              </span>
               <br />
               <br />
               I'm a software engineer who enjoys turning complex ideas into
@@ -106,7 +68,7 @@ const HomePage = () => {
               for people to understand, use, and connect with.
             </p>
             <ul className='list-none mx-auto py-8 px-4 flex flex-col sm:flex-row flex-wrap justify-center gap-4'>
-              {socialLinks.map((item, index) => (
+              {SOCIAL_LINKS.map((item, index) => (
                 <li key={index}>
                   <SocialButton {...item} />
                 </li>

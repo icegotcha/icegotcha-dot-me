@@ -14,7 +14,7 @@ export default function Typewriter({
   className = '',
   duration = 2000,
 }: Props) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(text.length)
 
   useEffect(() => {
     setCount(0)
@@ -41,7 +41,15 @@ export default function Typewriter({
       </span>
       <span className='absolute top-0 left-0' aria-hidden>
         {text.slice(0, count)}
-        <span className={styles['typewriter-caret']} />
+        <span
+          className={`transition-opacity duration-200 ${
+            count >= text.length
+              ? 'opacity-0 group-hover:opacity-100'
+              : 'opacity-100'
+          }`}
+        >
+          <span className={styles['typewriter-caret']} />
+        </span>
       </span>
     </span>
   )

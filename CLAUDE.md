@@ -18,6 +18,8 @@ yarn format   # prettier --write .
 
 There is no test suite. Playwright is available as an MCP server (`.mcp.json`) for browser-driven verification. The server is approved locally via `enabledMcpjsonServers` in `.claude/settings.local.json`; tools load on session start, so restart Claude Code after enabling.
 
+> **Do not download the `chrome-for-testing` browser.** The Playwright MCP is configured to use the already-installed `chromium` channel (`--browser chromium` in `.mcp.json`). If a tool call asks to install `chrome-for-testing`, do not run the install — stay on the existing channel.
+
 ## Architecture
 
 Personal website. Stack: Next.js 16 **App Router**, React 19, Tailwind CSS v4, TypeScript.
