@@ -11,6 +11,35 @@
   }
 }
 
+/*
+ * The entrance animation is CSS-only and ALWAYS ends visible (`both` fill-mode
+ * keeps the final `opacity: 1`). Visibility must never depend on JS: on some
+ * back-navigation loads the client effects don't re-run, so anything gated on an
+ * IntersectionObserver / pageshow handler would stay stuck at opacity 0 and the
+ * page would render blank.
+ */
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-in;
+  animation: fadeInUp 0.6s ease-in both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up {
+    animation: none;
+  }
+}
+
+/*
+ * Where supported, drive the same animation by scroll position so each element
+ * still reveals as it enters the viewport. This is pure CSS (no JS), so it
+ * survives back-navigation. Browsers without scroll-driven animations fall back
+ * to the play-on-load rule above.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .animate-fade-in-up {
+      animation: fadeInUp linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+  }
 }
