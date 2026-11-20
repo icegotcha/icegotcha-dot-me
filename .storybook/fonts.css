@@ -1,0 +1,16 @@
+/*
+ * Fonts for Storybook only.
+ *
+ * The app loads these via `next/font` in `src/app/layout.tsx`, but pulling
+ * `next/font` into Storybook makes the nextjs-vite font plugin fetch Google
+ * Fonts at transform time (which fails offline / behind proxies). Instead we
+ * load them at runtime with a plain @import and declare the same CSS variables
+ * the components reference, so nothing is fetched during the build.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&family=Share+Tech+Mono&display=swap');
+
+:root {
+  --font-pixelify: 'Pixelify Sans', ui-sans-serif, sans-serif;
+  --font-press-start: 'Press Start 2P', ui-monospace, monospace;
+  --font-share-tech: 'Share Tech Mono', ui-monospace, monospace;
+}

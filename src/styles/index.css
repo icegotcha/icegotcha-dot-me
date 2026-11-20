@@ -1,0 +1,24 @@
+@import './tailwind.css';
+@import './theme.css';
+
+@layer base {
+  body {
+    cursor: default;
+  }
+
+  body * {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  [data-contact-form],
+  [data-contact-form] * {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  [data-contact-form] input,
+  [data-contact-form] textarea {
+    cursor: text;
+  }
+}
