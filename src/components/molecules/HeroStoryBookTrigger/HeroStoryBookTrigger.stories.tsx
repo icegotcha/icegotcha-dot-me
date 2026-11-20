@@ -25,8 +25,10 @@ export const MyStoryPreview: Story = {
     await userEvent.click(trigger)
     const dialog = await page.findByRole('dialog', { name: 'The Story Behind the Code' })
     const book = within(dialog)
-    await waitFor(() => expect(book.getByText(/I'm Ice, a software developer/)).toBeVisible())
-    await expect(book.getByText(/From making my first website at seven/)).toBeVisible()
+    await waitFor(() =>
+      expect(book.getByText(/From making my first website at seven/)).toBeVisible()
+    )
+    await expect(book.getByText(/drawing, writing, and imagined worlds/)).toBeVisible()
     await expect(book.getByRole('link', { name: 'Read My Story →' })).toHaveAttribute(
       'href',
       '/story'
