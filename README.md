@@ -75,6 +75,48 @@ pnpm start
 
 The hosting environment must support Next.js server routes for `/api/contact`.
 
+## Deploying to Vercel
+
+Import `icegotcha/icegotcha-dot-me` as a new Vercel project. Use these project settings:
+
+| Setting          | Value                            |
+| ---------------- | -------------------------------- |
+| Framework preset | Next.js (detected automatically) |
+| Root directory   | Repository root                  |
+| Install command  | `pnpm install --frozen-lockfile` |
+| Build command    | `pnpm build`                     |
+| Node.js version  | 24.x                             |
+
+`vercel.json` is not required because Vercel's Next.js preset supports the App Router and the
+`/api/contact` route directly.
+
+Add these values in the Vercel project's **Settings → Environment Variables**:
+
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY`
+- `TURNSTILE_SECRET_KEY`
+- `TURNSTILE_EXPECTED_HOSTNAME`
+- `RESEND_API_KEY`
+- `CONTACT_FROM_EMAIL`
+- `CONTACT_TO_EMAIL`
+
+Use production Turnstile keys whose widget allows the deployed hostname, and use a Resend sender
+on a verified domain. Select Production for the production values. If preview deployments need the
+contact form, configure suitable Preview values too; set `TURNSTILE_EXPECTED_HOSTNAME` only for an
+environment whose hostname is fixed. Do not add dummy development keys or real credentials to
+`.env.example`.
+
+Because the Turnstile site key is prefixed with `NEXT_PUBLIC_`, Vercel embeds it during the build.
+Redeploy after changing it. After the first deployment, attach the production domain and verify that
+it matches the hostname configured in Turnstile and `TURNSTILE_EXPECTED_HOSTNAME`.
+
+To link this checkout locally after installing the Vercel CLI, run:
+
+```bash
+pnpm dlx vercel@latest link
+```
+
+Vercel creates `.vercel/` for local project metadata; it is intentionally ignored by Git.
+
 ## Checks and Storybook
 
 ```bash
