@@ -1,0 +1,4 @@
+.viewer button:focus-visible {
+  outline: 2px solid #ffd03a;
+  outline-offset: -4px;
+}

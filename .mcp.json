@@ -1,17 +1,9 @@
 {
   "mcpServers": {
-     "next-devtools": {
-      "command": "npx",
-      "args": ["-y", "next-devtools-mcp@latest"]
-    },
     "playwright": {
       "type": "stdio",
       "command": "npx",
-      "args": [
-        "@playwright/mcp@latest",
-        "--browser",
-        "chromium"
-      ],
+      "args": ["-y", "@playwright/mcp@latest", "--browser", "chrome"],
       "env": {}
     }
   }
