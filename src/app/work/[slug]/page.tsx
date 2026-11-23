@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import WorkDetail from '@/components/organisms/WorkDetail'
 import { WORKS } from '@/content/works'
 import { fetchGitHubReadme } from '@/lib/githubReadme'
+import { SITE_NAME } from '@/lib/site'
 import type { Work } from '@/types'
 
 interface WorkPageProps {
@@ -25,9 +26,9 @@ function getWork(slug: string): Work {
 
 export async function generateMetadata({ params }: WorkPageProps): Promise<Metadata> {
   const work = getWork((await params).slug)
-  const title = `${work.title} | Icegotcha`
+  const title = `${work.title} | ${SITE_NAME}`
   return {
-    title,
+    title: work.title,
     description: work.excerpt,
     alternates: { canonical: `/work/${work.slug}` },
     openGraph: { title, description: work.excerpt, type: 'website', siteName: 'Icegotcha' },

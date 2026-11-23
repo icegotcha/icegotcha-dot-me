@@ -6,12 +6,20 @@ import StoryPrinciples from '@/components/organisms/StoryPrinciples'
 import ProfessionalExperience from '@/components/organisms/ProfessionalExperience'
 import StoryClosing from '@/components/organisms/StoryClosing'
 import { STORY_CONTENT } from '@/content/story'
+import { SITE_NAME } from '@/lib/site'
+
+const socialTitle = `${STORY_CONTENT.metadata.title} | ${SITE_NAME}`
 
 export const metadata: Metadata = {
   ...STORY_CONTENT.metadata,
   alternates: { canonical: '/story' },
-  openGraph: { ...STORY_CONTENT.metadata, type: 'website', siteName: 'Icegotcha' },
-  twitter: { ...STORY_CONTENT.metadata, card: 'summary' },
+  openGraph: {
+    ...STORY_CONTENT.metadata,
+    title: socialTitle,
+    type: 'website',
+    siteName: 'Icegotcha',
+  },
+  twitter: { ...STORY_CONTENT.metadata, title: socialTitle, card: 'summary' },
 }
 
 export default function StoryPage(): ReactElement {

@@ -4,7 +4,7 @@ import Nav from '@/components/organisms/Nav'
 import Footer from '@/components/molecules/Footer'
 import SiteInteractionGuard from '@/components/atoms/SiteInteractionGuard'
 import { MONO } from '@/lib/fonts'
-import { SITE_URL } from '@/lib/site'
+import { SITE_NAME, SITE_URL } from '@/lib/site'
 import { Pixelify_Sans, Press_Start_2P, Share_Tech_Mono } from 'next/font/google'
 
 import '@/styles/index.css'
@@ -13,19 +13,22 @@ import '@/styles/index.css'
 // against metadataBase and point every route at the homepage.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'Icegotcha | Creative Technologist',
+  title: {
+    default: `Software Developer | ${SITE_NAME}`,
+    template: `%s | ${SITE_NAME}`,
+  },
   description:
-    'Portfolio of Kotchakorn Wongwisutigul, a software developer, novelist, and illustrator working across code, story, and image.',
+    'Meet Kotchakorn Wongwisutigul (Icegotcha), a software developer growing as a writer and illustrator. Explore software projects, stories, and artwork.',
   openGraph: {
-    title: 'Icegotcha | Creative Technologist',
-    description: 'Software, stories, and illustrated worlds by Kotchakorn Wongwisutigul.',
+    title: `Software Developer | ${SITE_NAME}`,
+    description: 'Meet Icegotcha, a software developer growing as a writer and illustrator.',
     type: 'website',
     siteName: 'Icegotcha',
   },
   twitter: {
     card: 'summary',
-    title: 'Icegotcha | Creative Technologist',
-    description: 'Software, stories, and illustrated worlds by Kotchakorn Wongwisutigul.',
+    title: `Software Developer | ${SITE_NAME}`,
+    description: 'Meet Icegotcha, a software developer growing as a writer and illustrator.',
   },
 }
 
