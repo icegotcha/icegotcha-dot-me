@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState, type ReactElement, type ReactNode
 import { useInView } from 'motion/react'
 import { Pause, Play, RotateCcw } from 'lucide-react'
 import { PIXEL } from '@/lib/fonts'
+import { WORK_PREVIEW_CONTENT } from '@/content/work-preview'
 import { BrowserPreviewFrameContext } from './context'
 import styles from './BrowserPreviewFrame.module.css'
 
@@ -22,7 +23,7 @@ export default function BrowserPreviewFrame({
   children,
   caption,
   address = 'Website preview',
-  viewportLabel = 'Scrollable website mockup',
+  viewportLabel = WORK_PREVIEW_CONTENT.viewportLabel,
 }: BrowserPreviewFrameProps): ReactElement {
   const previewRef = useRef<HTMLDivElement>(null)
   const viewportRef = useRef<HTMLDivElement>(null)

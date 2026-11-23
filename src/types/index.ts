@@ -1,4 +1,5 @@
 import type { StaticImageData } from 'next/image'
+import type { ComponentType } from 'react'
 
 export enum WorkCategory {
   Novel = 'Novel',
@@ -34,6 +35,13 @@ export interface GitHubReadmeSource {
   path?: string
 }
 
+export interface WorkPreviewContent {
+  component: ComponentType
+  title: string
+  description?: string
+  address?: string
+}
+
 export interface Work {
   slug: string
   year: string
@@ -46,6 +54,7 @@ export interface Work {
   technologies?: string[]
   markdownContent?: string
   githubReadme?: GitHubReadmeSource
+  preview?: WorkPreviewContent
   gallery?: ProjectImage[]
   links?: WorkLink[]
 }

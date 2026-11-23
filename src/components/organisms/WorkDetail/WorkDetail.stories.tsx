@@ -1,6 +1,8 @@
+import type { ReactElement } from 'react'
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { expect, within } from 'storybook/test'
 import { WORKS } from '@/content/works'
+import { WORK_PREVIEW_CONTENT } from '@/content/work-preview'
 import WorkDetail from '.'
 const meta = {
   title: 'Organisms/WorkDetail',
@@ -9,6 +11,11 @@ const meta = {
 } satisfies Meta<typeof WorkDetail>
 export default meta
 type Story = StoryObj<typeof meta>
+
+function SyntheticPreview(): ReactElement {
+  return <p>Synthetic component supplied by content.</p>
+}
+
 export const ExistingData: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -37,12 +44,59 @@ export const BitkubBlockchain: Story = {
   args: { work: WORKS.find((work) => work.slug === 'bitkubblockchain') ?? WORKS[0] },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    await expect(canvas.getByRole('heading', { name: 'Page load preview' })).toBeInTheDocument()
+    await expect(canvas.getByRole('heading', { name: 'Website preview' })).toBeInTheDocument()
+    await expect(canvas.getByText(WORK_PREVIEW_CONTENT.scrollHint)).toBeInTheDocument()
     await expect(
-      canvas.getByRole('group', { name: /Interactive achievements preview/ })
+      canvas.getByRole('region', { name: WORK_PREVIEW_CONTENT.viewportLabel })
+    ).toBeInTheDocument()
+    await expect(
+      await canvas.findByRole('group', { name: /Interactive achievements preview/ })
     ).toBeInTheDocument()
   },
 }
+
+export const CustomPreview: Story = {
+  args: {
+    work: {
+      ...WORKS[0],
+      slug: 'synthetic-preview-project',
+      preview: {
+        component: SyntheticPreview,
+        title: 'Synthetic motion preview',
+        description: 'Custom preview caption for Storybook.',
+        address: 'example.com',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(
+      canvas.getByRole('heading', { name: 'Synthetic motion preview' })
+    ).toBeInTheDocument()
+    await expect(canvas.getByText(WORK_PREVIEW_CONTENT.scrollHint)).toBeInTheDocument()
+    await expect(canvas.getByText('Custom preview caption for Storybook.')).toBeInTheDocument()
+    await expect(canvas.getByText('Synthetic component supplied by content.')).toBeInTheDocument()
+    await expect(canvas.getByText('example.com')).toBeInTheDocument()
+    await expect(
+      canvas.getByRole('region', { name: WORK_PREVIEW_CONTENT.viewportLabel })
+    ).toBeInTheDocument()
+  },
+}
+
+export const PreviewDisabled: Story = {
+  args: {
+    work: {
+      ...(WORKS.find((work) => work.slug === 'bitkubblockchain') ?? WORKS[0]),
+      preview: undefined,
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.queryByRole('heading', { name: 'Website preview' })).not.toBeInTheDocument()
+    await expect(canvas.queryByRole('button', { name: 'Replay animation' })).not.toBeInTheDocument()
+  },
+}
+
 export const SoftwareFixture: Story = {
   args: {
     work: {

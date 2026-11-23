@@ -110,10 +110,10 @@ export default function WorkDetail({
             </nav>
           )}
         </header>
-        <WorkPreview slug={work.slug} />
         {work.markdownContent?.trim() && (
           <ProjectMarkdown content={work.markdownContent} source={markdownSource} />
         )}
+        <WorkPreview preview={work.preview} />
         <ProjectGallery images={work.gallery ?? []} />
       </article>
       <ProjectNavigation previous={previous} next={next} />

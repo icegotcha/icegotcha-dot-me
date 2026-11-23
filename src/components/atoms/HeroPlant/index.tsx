@@ -4,8 +4,16 @@ import { useEffect, useRef, type ReactElement } from 'react'
 import { useReducedMotion } from 'motion/react'
 import { getHeroImageProps } from '@/lib/heroImages'
 
+interface HeroPlantProps {
+  onActivate?: () => void
+  label?: string
+}
+
 /** A short, restartable click reaction pivots the original artwork around its base. */
-export default function HeroPlant(): ReactElement {
+export default function HeroPlant({
+  onActivate,
+  label = 'Gently wobble the bunny planter',
+}: HeroPlantProps): ReactElement {
   const imageRef = useRef<HTMLImageElement>(null)
   const animationRef = useRef<Animation | null>(null)
   const reducedMotion = useReducedMotion()
@@ -16,6 +24,7 @@ export default function HeroPlant(): ReactElement {
   }, [reducedMotion])
 
   function wobble(): void {
+    onActivate?.()
     animationRef.current?.cancel()
     if (reducedMotion || !imageRef.current) return
     animationRef.current = imageRef.current.animate(
@@ -33,7 +42,7 @@ export default function HeroPlant(): ReactElement {
   return (
     <button
       type="button"
-      aria-label="Gently wobble the bunny planter"
+      aria-label={label}
       onClick={wobble}
       className="block h-full w-full cursor-pointer border-0 bg-transparent p-0 transition-[filter] hover:brightness-110 focus-visible:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFD03A] motion-reduce:transition-none"
     >

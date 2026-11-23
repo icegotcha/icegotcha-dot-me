@@ -1,9 +1,24 @@
 import { getHeroImageProps } from '@/lib/heroImages'
 import CodeScreenOverlay from './CodeScreenOverlay'
+import BrowserScreenOverlay from './BrowserScreenOverlay'
+import ArtworkScreenOverlay from './ArtworkScreenOverlay'
 import { memo, type ReactElement } from 'react'
 
-/** The hero's visual anchor: the generated computer artwork with a live animated code overlay clipped to its screen. */
-function HeroComputer(): ReactElement {
+export type HeroComputerScreen = 'code' | 'browser' | 'artwork'
+
+const SCREENS = {
+  code: CodeScreenOverlay,
+  browser: BrowserScreenOverlay,
+  artwork: ArtworkScreenOverlay,
+}
+
+interface HeroComputerProps {
+  screen?: HeroComputerScreen
+}
+
+/** Screen overlays stay clipped to the original computer artwork. */
+function HeroComputer({ screen = 'code' }: HeroComputerProps): ReactElement {
+  const Screen = SCREENS[screen]
   return (
     <div className="relative h-full w-full">
       <img
@@ -15,7 +30,7 @@ function HeroComputer(): ReactElement {
         className="h-full w-full object-contain"
         draggable={false}
       />
-      <CodeScreenOverlay />
+      <Screen />
       <div
         aria-hidden="true"
         className="hero-screen-glow pointer-events-none absolute left-[10%] top-[8%] h-[58%] w-[80%] rounded-[4%]"
