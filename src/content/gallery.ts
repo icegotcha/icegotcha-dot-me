@@ -12,9 +12,9 @@ import type { GalleryContent } from '@/types'
 
 export const GALLERY_CONTENT: GalleryContent = {
   metadata: {
-    title: 'Gallery | Icegotcha',
+    title: 'Drawings & Illustrations',
     description:
-      'A collection of early websites, games, drawings, and illustrations from Icegotcha.',
+      'Browse drawings and illustrations by Icegotcha, from colorful characters to imagined worlds, and discover a lifelong love of making art.',
   },
   images: [
     {

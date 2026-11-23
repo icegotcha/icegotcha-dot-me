@@ -12,9 +12,9 @@ Along the way, drawing, writing, and imagined worlds have become part of my stor
 
 export const STORY_CONTENT: StoryContent = {
   metadata: {
-    title: 'My Story | Icegotcha',
+    title: 'The Story Behind the Code',
     description:
-      'Meet Ice: a software developer with over eight years of experience, exploring creativity, writing, illustration, and the stories behind the code.',
+      'Get to know Icegotcha, from building a first website at seven to a career in software development, with writing and illustration woven into the journey.',
   },
   hero: {
     eyebrow: 'A LITTLE ABOUT ME',
