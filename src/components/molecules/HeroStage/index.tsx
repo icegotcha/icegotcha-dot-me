@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 import ParallaxLayer, { type HeroObjectActivation } from '@/components/molecules/ParallaxLayer'
 import HeroDesk from '@/components/atoms/HeroDesk'
 import HeroPlant from '@/components/atoms/HeroPlant'
-import HeroComputer from '@/components/atoms/HeroComputer'
+import HeroComputer, { type HeroComputerScreen } from '@/components/atoms/HeroComputer'
 import HeroCoffeeCup from '@/components/atoms/HeroCoffeeCup'
 import type { SteamShape } from '@/components/atoms/HeroCoffeeCup/SteamStrands'
 import HeroRabbit from '@/components/atoms/HeroRabbit'
@@ -28,6 +28,11 @@ const DEPTH = {
   brush: 0.3,
 }
 const ANCHOR_SPRING = { stiffness: 260, damping: 26, mass: 0.5 }
+const SCREEN_ACTION_LABELS: Record<HeroComputerScreen, string> = {
+  code: 'Show browser on the computer',
+  browser: 'Show artwork on the computer',
+  artwork: 'Show code on the computer',
+}
 
 export interface HeroBurst {
   id: number
@@ -38,7 +43,9 @@ export interface HeroBurst {
 
 interface HeroStageProps {
   skyMode?: HeroSkyMode
+  computerScreen?: HeroComputerScreen
   onMouseActivate?: (point: HeroObjectActivation) => void
+  onPlantActivate?: () => void
   onBrushActivate?: () => void
   onCoffeeActivate?: () => void
   coffeeBreak?: { key: number; shape: SteamShape; message: string | null }
@@ -60,7 +67,9 @@ const HeroStage = forwardRef<HTMLDivElement, HeroStageProps>(function HeroStage(
     onObjectActivate,
     onDismissBurst,
     skyMode = 'moon',
+    computerScreen = 'code',
     onMouseActivate,
+    onPlantActivate,
     onBrushActivate,
     onCoffeeActivate,
     coffeeBreak = { key: 0, shape: 'heart', message: null },
@@ -129,14 +138,21 @@ const HeroStage = forwardRef<HTMLDivElement, HeroStageProps>(function HeroStage(
         options={{ spring: ANCHOR_SPRING, drift: { x: 0, y: -12 } }}
         className="absolute left-[69%] top-[43%] z-20 w-[30%] sm:left-[71%] sm:top-[35%] sm:w-[28%] md:left-[72%] md:top-[33%] md:w-[28%]"
       >
-        <HeroPlant />
+        <HeroPlant
+          onActivate={onPlantActivate}
+          label={
+            onPlantActivate
+              ? `Change the sky. Current: ${skyMode}. Switch to ${skyMode === 'moon' ? 'day' : 'night'}.`
+              : undefined
+          }
+        />
       </ParallaxLayer>
 
       <ParallaxLayer
         depth={0}
         className="absolute left-[6%] top-[22%] z-10 w-[88%] sm:left-[17%] sm:top-[12%] sm:w-[64%] md:left-[17%] md:top-[6%] md:w-[64%]"
       >
-        <HeroComputer />
+        <HeroComputer screen={computerScreen} />
       </ParallaxLayer>
 
       <ParallaxLayer
@@ -184,7 +200,7 @@ const HeroStage = forwardRef<HTMLDivElement, HeroStageProps>(function HeroStage(
       <ParallaxLayer
         depth={DEPTH.mouse}
         options={{ drift: { x: 20, y: 18 } }}
-        interactiveLabel={`Change the sky. Current: ${skyMode}. ${skyMode === 'moon' ? 'Drop the moon and reveal the sun on the left' : 'Drop the sun and return to the moon'}.`}
+        interactiveLabel={SCREEN_ACTION_LABELS[computerScreen]}
         onActivate={onMouseActivate ?? onObjectActivate}
         className="absolute left-[68%] top-[68%] z-20 w-[14%] sm:left-[66%] sm:top-[78%] sm:w-[12%] md:left-[66%] md:top-[78%] md:w-[11%]"
       >

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 import InteractiveHero from '.'
+import { HERO_BROWSER_CONTENT, HERO_SCREEN_IMAGE } from '@/content/home'
 import { expect, userEvent, waitFor, within } from 'storybook/test'
 
 const meta = {
@@ -17,32 +18,65 @@ export const Default: Story = {}
 export const SkySwitch: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    const mouse = canvas.getByRole('button', { name: /Change the sky/ })
+    const planter = canvas.getByRole('button', { name: /Change the sky/ })
     const window = canvasElement.querySelector('[data-sky-mode]')
     await expect(window).toHaveAttribute('data-sky-mode', 'moon')
     await expect(canvas.getByText(/^Sky:/)).toHaveTextContent('Sky: moon')
     for (const sky of ['sun', 'moon']) {
-      await userEvent.click(mouse)
+      await userEvent.click(planter)
       await expect(window).toHaveAttribute('data-sky-mode', sky)
       await expect(canvas.getByText(/^Sky:/)).toHaveTextContent(`Sky: ${sky}`)
     }
-    await userEvent.click(mouse)
-    await userEvent.click(mouse)
-    await userEvent.click(mouse)
+    await userEvent.click(planter)
+    await userEvent.click(planter)
+    await userEvent.click(planter)
     await expect(window).toHaveAttribute('data-sky-mode', 'sun')
-    mouse.focus()
+    planter.focus()
     await userEvent.keyboard('{Enter}')
     await expect(canvas.getByText(/^Sky:/)).toHaveTextContent('Sky: moon')
     await userEvent.keyboard(' ')
     await expect(canvas.getByText(/^Sky:/)).toHaveTextContent('Sky: sun')
     await expect(canvasElement.querySelectorAll('.hero-monitor-code')).toHaveLength(6)
     await expect(canvasElement.querySelector('[data-hero-spark-burst]')).not.toBeInTheDocument()
-    await userEvent.click(canvas.getByRole('button', { name: 'Gently wobble the bunny planter' }))
+    await expect(canvas.getByText('Computer: code')).toBeInTheDocument()
     await expect(canvasElement.querySelector('[data-hero-spark-burst]')).not.toBeInTheDocument()
     const rabbit = canvas.getByRole('button', { name: 'Play with the rabbit' })
     rabbit.focus()
     await userEvent.keyboard('{Enter}')
     await expect(rabbit).toHaveAttribute('data-ear-reaction', 'flick')
+    await expect(canvasElement.querySelector('[data-hero-spark-burst]')).not.toBeInTheDocument()
+  },
+}
+
+export const ScreenCycle: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const mouse = canvas.getByRole('button', { name: 'Show browser on the computer' })
+    await expect(canvas.getByText('Computer: code')).toBeInTheDocument()
+    await userEvent.click(mouse)
+    await expect(canvas.getByRole('img', { name: HERO_BROWSER_CONTENT.label })).toBeVisible()
+    await expect(canvas.getByText('Computer: browser')).toBeInTheDocument()
+    await expect(canvas.getByText('Sky: moon')).toBeInTheDocument()
+    await expect(canvasElement.querySelector('.hero-monitor-code')).not.toBeInTheDocument()
+    await userEvent.click(canvas.getByRole('button', { name: /Change the sky/ }))
+    await expect(canvas.getByText('Sky: sun')).toBeInTheDocument()
+    await expect(canvas.getByRole('img', { name: HERO_BROWSER_CONTENT.label })).toBeVisible()
+    mouse.focus()
+    await userEvent.keyboard('{Enter}')
+    const artwork = canvas.getByRole('img', { name: HERO_SCREEN_IMAGE.alt })
+    await expect(artwork).toBeVisible()
+    if (!(artwork instanceof HTMLImageElement)) throw new Error('Expected the screen artwork image')
+    await waitFor(() => expect(artwork.naturalWidth).toBeGreaterThan(0))
+    await expect(canvas.getByText('Computer: artwork')).toBeInTheDocument()
+    await expect(
+      canvas.queryByRole('img', { name: HERO_BROWSER_CONTENT.label })
+    ).not.toBeInTheDocument()
+    await userEvent.keyboard(' ')
+    await expect(canvas.getByText('Computer: code')).toBeInTheDocument()
+    await expect(canvasElement.querySelectorAll('.hero-monitor-code')).toHaveLength(6)
+    await userEvent.keyboard(' ')
+    await expect(canvas.getByRole('img', { name: HERO_BROWSER_CONTENT.label })).toBeVisible()
+    await expect(canvas.getByText('Sky: sun')).toBeInTheDocument()
     await expect(canvasElement.querySelector('[data-hero-spark-burst]')).not.toBeInTheDocument()
   },
 }

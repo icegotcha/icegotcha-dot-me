@@ -1,5 +1,10 @@
+import dynamic from 'next/dynamic'
 import { WorkCategory, WorkStatus } from '@/types'
 import type { Work } from '@/types'
+
+const BitkubBlockchainMockup = dynamic(
+  () => import('@/components/work/BitkubBlockchain/WebsiteMockup')
+)
 
 export const WORKS: readonly Work[] = [
   {
@@ -168,6 +173,12 @@ I leveraged AI-assisted development with Lovable while maintaining responsibilit
       alt: 'Blockchain security and transaction platform design with cryptocurrency wallet, database, and task management interface',
     },
     title: 'Bitkubblockchain.com',
+    preview: {
+      component: BitkubBlockchainMockup,
+      title: 'Website preview',
+      address: 'https://bitkubblockchain.com',
+      description: 'Preview of the first page of Bitkub Blockchain website',
+    },
     tags: ['Web Development', 'Frontend'],
     technologies: ['React', 'Next.js 16', 'CSS animations', 'Swiper.js', 'React Hook Form', 'Zod'],
     excerpt: 'A corporate website for Bitkub Blockchain, showcasing their services and projects.',

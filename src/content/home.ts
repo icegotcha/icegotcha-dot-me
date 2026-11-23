@@ -16,6 +16,28 @@ export const HERO_CONTENT: HeroContent = {
     'A software developer, growing as a writer and illustrator, building thoughtful digital experiences at the intersection of code, story, and image.',
 }
 
+export const HERO_BROWSER_CONTENT = {
+  address: 'example.com',
+  label: 'Illustrative website mockup in a browser',
+}
+
+export const HERO_SCREEN_IMAGE = {
+  src: '/images/hero/screen-wallpaper.webp',
+  alt: 'Hand-drawn brown-haired faces on a peach background',
+} as const
+
+export const HERO_CODE_CONTENT = {
+  filename: 'index.html',
+  lines: [
+    '<!doctype html>',
+    '<html lang="en">',
+    '  <body>',
+    '    <main>...</main>',
+    '  </body>',
+    '</html>',
+  ],
+}
+
 export const TECH_SKILLS: readonly TechSkill[] = [
   { name: 'React', icon: siReact.path },
   { name: 'TypeScript', icon: siTypescript.path },

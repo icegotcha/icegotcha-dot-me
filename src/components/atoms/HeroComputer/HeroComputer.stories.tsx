@@ -20,3 +20,11 @@ type Story = StoryObj<typeof meta>
 
 /** Compact code preview types in without changing the artwork. */
 export const Default: Story = {}
+
+export const Browser: Story = {
+  args: { screen: 'browser' },
+}
+
+export const Artwork: Story = {
+  args: { screen: 'artwork' },
+}

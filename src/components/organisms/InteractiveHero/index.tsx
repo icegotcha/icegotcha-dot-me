@@ -14,7 +14,13 @@ import {
 } from '@/components/atoms/HeroMagicDrawing/drawings'
 import type { HeroObjectActivation } from '@/components/molecules/ParallaxLayer'
 import type { HeroSkyMode } from '@/lib/heroTheme'
+import type { HeroComputerScreen } from '@/components/atoms/HeroComputer'
 
+const NEXT_SCREEN: Record<HeroComputerScreen, HeroComputerScreen> = {
+  code: 'browser',
+  browser: 'artwork',
+  artwork: 'code',
+}
 const MAX_VISIBLE_BURSTS = 5
 const COFFEE_COOLDOWN_MS = 1800
 const COFFEE_MESSAGE_MS = 4000
@@ -32,6 +38,7 @@ const COFFEE_MESSAGES = [
 export default function InteractiveHero() {
   const [sketchbookOpen, setSketchbookOpen] = useState(false)
   const [skyMode, setSkyMode] = useState<HeroSkyMode>('moon')
+  const [computerScreen, setComputerScreen] = useState<HeroComputerScreen>('code')
   const [brushDrawing, setBrushDrawing] = useState<{ key: number; index: number } | null>(null)
   const brushSequence = useRef(0)
   const lastDrawing = useRef<number | null>(null)
@@ -67,6 +74,10 @@ export default function InteractiveHero() {
   }, [])
 
   const handleMouseActivate = useCallback(() => {
+    setComputerScreen((current) => NEXT_SCREEN[current])
+  }, [])
+
+  const handlePlantActivate = useCallback(() => {
     setSkyMode((current) => (current === 'moon' ? 'sun' : 'moon'))
   }, [])
 
@@ -137,7 +148,9 @@ export default function InteractiveHero() {
             <HeroStage
               ref={stageRef}
               skyMode={skyMode}
+              computerScreen={computerScreen}
               onMouseActivate={handleMouseActivate}
+              onPlantActivate={handlePlantActivate}
               onBrushActivate={handleBrushActivate}
               onCoffeeActivate={handleCoffeeActivate}
               coffeeBreak={coffeeBreak}
@@ -155,6 +168,9 @@ export default function InteractiveHero() {
             </p>
             <span role="status" className="sr-only">
               Sky: {skyMode === 'moon' ? 'moon' : 'sun'}
+            </span>
+            <span role="status" className="sr-only">
+              Computer: {computerScreen}
             </span>
             <span role="status" className="sr-only">
               {coffeeBreak.message}
