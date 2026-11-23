@@ -7,6 +7,7 @@ import type { GitHubReadmeSource, Work } from '@/types'
 import { Github, Link as LinkIcon } from 'lucide-react'
 import ProjectNavigation from '@/components/molecules/ProjectNavigation'
 import ProjectGallery from '@/components/organisms/ProjectGallery'
+import WorkPreview from '@/components/work/WorkPreview'
 import { MONO, PIXEL } from '@/lib/fonts'
 
 interface WorkDetailProps {
@@ -109,6 +110,7 @@ export default function WorkDetail({
             </nav>
           )}
         </header>
+        <WorkPreview slug={work.slug} />
         {work.markdownContent?.trim() && (
           <ProjectMarkdown content={work.markdownContent} source={markdownSource} />
         )}

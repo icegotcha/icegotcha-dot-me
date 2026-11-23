@@ -32,6 +32,17 @@ export const Blog: Story = {
     )
   },
 }
+
+export const BitkubBlockchain: Story = {
+  args: { work: WORKS.find((work) => work.slug === 'bitkubblockchain') ?? WORKS[0] },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByRole('heading', { name: 'Page load preview' })).toBeInTheDocument()
+    await expect(
+      canvas.getByRole('group', { name: /Interactive achievements preview/ })
+    ).toBeInTheDocument()
+  },
+}
 export const SoftwareFixture: Story = {
   args: {
     work: {
