@@ -5,6 +5,7 @@ import { GALLERY_CONTENT } from '@/content/gallery'
 
 export const metadata: Metadata = {
   ...GALLERY_CONTENT.metadata,
+  alternates: { canonical: '/gallery' },
   openGraph: { ...GALLERY_CONTENT.metadata, type: 'website', siteName: 'Icegotcha' },
   twitter: { ...GALLERY_CONTENT.metadata, card: 'summary' },
 }

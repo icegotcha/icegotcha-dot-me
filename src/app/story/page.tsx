@@ -9,6 +9,7 @@ import { STORY_CONTENT } from '@/content/story'
 
 export const metadata: Metadata = {
   ...STORY_CONTENT.metadata,
+  alternates: { canonical: '/story' },
   openGraph: { ...STORY_CONTENT.metadata, type: 'website', siteName: 'Icegotcha' },
   twitter: { ...STORY_CONTENT.metadata, card: 'summary' },
 }

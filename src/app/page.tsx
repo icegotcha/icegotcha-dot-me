@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import type { ReactElement } from 'react'
 import HeroSection from '@/components/organisms/HeroSection'
 import AboutSection from '@/components/organisms/AboutSection'
@@ -6,6 +7,10 @@ import WorksSection from '@/components/organisms/WorksSection'
 import WritingSection from '@/components/organisms/WritingSection'
 import ContactSection from '@/components/organisms/ContactSection'
 import ExpertiseSection from '@/components/organisms/ExpertiseSection'
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+}
 
 export default function Page(): ReactElement {
   return (

@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: WorkPageProps): Promise<Metad
   return {
     title,
     description: work.excerpt,
+    alternates: { canonical: `/work/${work.slug}` },
     openGraph: { title, description: work.excerpt, type: 'website', siteName: 'Icegotcha' },
     twitter: { title, description: work.excerpt, card: 'summary' },
   }

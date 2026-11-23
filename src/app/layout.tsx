@@ -4,18 +4,18 @@ import Nav from '@/components/organisms/Nav'
 import Footer from '@/components/molecules/Footer'
 import SiteInteractionGuard from '@/components/atoms/SiteInteractionGuard'
 import { MONO } from '@/lib/fonts'
+import { SITE_URL } from '@/lib/site'
 import { Pixelify_Sans, Press_Start_2P, Share_Tech_Mono } from 'next/font/google'
 
 import '@/styles/index.css'
 
+// Canonical URLs are set per page: a relative canonical here would resolve
+// against metadataBase and point every route at the homepage.
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: 'Icegotcha | Creative Technologist',
   description:
     'Portfolio of Kotchakorn Wongwisutigul, a software developer, novelist, and illustrator working across code, story, and image.',
-  robots: {
-    index: true,
-    follow: true,
-  },
   openGraph: {
     title: 'Icegotcha | Creative Technologist',
     description: 'Software, stories, and illustrated worlds by Kotchakorn Wongwisutigul.',
